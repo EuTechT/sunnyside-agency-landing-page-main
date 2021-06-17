@@ -8,6 +8,8 @@
     --primary-4: hsl(198, 62%, 26%);
     --primary-5: hsl(168, 34%, 41%);
 
+    --neutral-5-hover: hsla(0, 0%, 100%, 0.4);
+
     --neutral-1: hsl(212, 27%, 19%);
     --neutral-2: hsl(213, 9%, 39%);
     --neutral-3: hsl(232, 10%, 55%);
@@ -53,13 +55,13 @@ html {
 }
 
 .header-1 {
-    width: 100%;
+    width: 90%;
     max-width: var(--max-width);
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.8rem 1.4rem;
+    padding: 1.8rem 0;
 
     position: relative;
 }
@@ -71,7 +73,7 @@ html {
 }
 
 .navigation {
-    width: 90%;
+    width: 100%;
     position: absolute;
     top: 100%;
     left: 50%;
@@ -93,6 +95,21 @@ html {
     padding: 1.8rem 0;
 }
 
+.header-1--active::after {
+    content: "";
+    width: 25px;
+    height: 25px;
+    background-color: var(--neutral-5);
+    border: none;
+    outline: none;
+
+    clip-path: polygon(100% 0%, 100% 100%, 100% 100%, 0% 100%);
+
+    position: absolute;
+    bottom: -2px;
+    right: 0px;
+}
+
 .list__item .navlink {
     display: inline-block;
     width: 100%;
@@ -101,6 +118,8 @@ html {
     font-size: 1.2rem;
     padding: 0.8rem 0;
     color: var(--neutral-2);
+
+    position: relative;
 }
 
 .list__item:last-child {
@@ -119,7 +138,75 @@ html {
     font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 1.2rem;
+    padding: 1rem 1.2rem;
+}
+
+@media (min-width: 1025px) {
+    .btn-menu {
+        display: none;
+    }
+
+    .navigation {
+        width: 40%;
+        min-width: 410px;
+        max-width: 500px;
+        max-height: unset;
+        position: relative;
+        top: unset;
+        left: unset;
+        transform: translateY(0);
+        background-color: transparent;
+    }
+
+    .navigation .list {
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .list__item .navlink {
+        padding: 0;
+        color: var(--neutral-5);
+        font-weight: unset;
+    }
+
+    
+
+    .list__item:last-child {
+        padding: 0;
+    }
+
+    .list__item:last-child .navlink {
+        width: unset;
+        background-color: var(--neutral-5);
+    }
+
+    .list__item:last-child .navlink:hover {
+        color: var(--neutral-5);
+        background-color: var(--neutral-5-hover);
+        transition: all 0.3s linear;
+    }
+
+    .list__item:nth-child(1) .navlink::after, 
+    .list__item:nth-child(2) .navlink::after,
+    .list__item:nth-child(3) .navlink::after {
+        content: "";
+        width: 0;
+        height: 5px;
+        background-color: var(--primary-1-hover);
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+
+        transition: width 0.3s linear;
+    }
+
+    .list__item:nth-child(1) .navlink:hover::after, 
+    .list__item:nth-child(2) .navlink:hover::after,
+    .list__item:nth-child(3) .navlink:hover::after {
+        width: 100%;
+    }
 }
 
 .hero {
@@ -141,7 +228,6 @@ html {
     color: var(--neutral-5);
     letter-spacing: 0.5rem;
     margin-bottom: 3.2rem;
-    text-shadow: 0px 0px 0.75px #000;
 }
 
 .arrow-down {
@@ -196,7 +282,6 @@ html {
     min-height: 200px;
 }
 
-/* .service-image */ 
 .image {
     width: 100%;
     height: 100%;
@@ -255,12 +340,12 @@ html {
 
 .service-description:nth-child(2) .link:hover::after {
     background-color: var(--primary-2-hover);
-    transition: background-color 0.2s linear;
+    transition: background-color 0.3s linear;
 }
 
 .service-description:nth-child(4) .link:hover::after {
     background-color: var(--primary-1-hover);
-    transition: background-color 0.2s linear;
+    transition: background-color 0.3s linear;
 }
 
 .service-img-desc {
@@ -299,8 +384,7 @@ html {
 
 @media (min-width:912px) {
     .grid {
-        grid-template-columns: repeat(2, 50%);
-        /* grid-template-rows: repeat(3, 50%); */
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .service-image:nth-child(1) {
@@ -408,12 +492,13 @@ html {
 
 .section-gallery .container {
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, 1fr);
 }
 
-@media (min-width:600px) {
+@media (min-width:700px) {
     .section-gallery .container {
-        grid-template-columns: repeat(4, 25%);
+        min-height: 300px;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
@@ -459,5 +544,10 @@ html {
 
 .footer__link:hover {
     color: var(--neutral-5);
-    transition: color 0.2s linear;
+    transition: color 0.3s linear;
+}
+
+.footer-list__item:hover svg path {
+    fill: var(--neutral-5);
+    transition: fill 0.3s linear;
 }
